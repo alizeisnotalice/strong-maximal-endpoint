@@ -1,0 +1,16 @@
+\subsection{\bi{由积分预算到终值函数}{From the integral budget to the terminal payoff}}
+\begin{lem}\label{budget}
+\bi{若 $s=n\mu-d_n+O(L)$ 且 $J(h)\le e^{-s}$，则对任意可预测策略，}{If $s=n\mu-d_n+O(L)$ and $J(h)\le e^{-s}$, then every predictable policy satisfies}
+\[
+ \mathbb E h(X)\le\mathbb E\phi_n(s-X)+O(L/n),\qquad X=S_n.
+\]
+\end{lem}
+\begin{proof}
+\bi{每一步条件密度至多为 $2e^{-z}$，$z>0$。逐步条件化并在单纯形上积分得终端密度 $f_\pi(t)\le2^ne^{-t}t^{n-1}/\Gamma(n)$。单步的均值至多为 $\mu$，且由同一密度界有一致指数矩；对充分小的正 $\theta$，Taylor 展开及迭代给 $\mathbb E e^{\theta X}\le e^{n\mu\theta+C n\theta^2}$。先控制 $X>s+\sqrt n L$。设 $\delta=e^{-\kappa L^2}$，$\Lambda=\delta e^s$，$u(t)=e^tf_\pi(t)/\Lambda$。Young 不等式给远尾期望上界}{Each conditional increment density is bounded by $2e^{-z}$ for $z>0$. Conditioning successively and integrating over the simplex gives $f_\pi(t)\le2^ne^{-t}t^{n-1}/\Gamma(n)$. The same density bound gives uniform exponential moments, and the conditional means are at most $\mu$. Taylor expansion and iteration give $\mathbb E e^{\theta X}\le e^{n\mu\theta+Cn\theta^2}$ for small positive $\theta$. Consider first $X>s+\sqrt n L$. Put $\delta=e^{-\kappa L^2}$, $\Lambda=\delta e^s$, and $u(t)=e^tf_\pi(t)/\Lambda$. Young's inequality bounds the tail expectation by}
+\[
+ \Lambda J(h)+\Lambda\int_{s+\sqrt n L}^\infty e^{-t}\Phi_n^*(u(t))\,dt .
+\]
+\bi{第一项至多为 $\delta$。由 Stirling 公式，$u(t)^{1/(n-1)}\le Ct/n$。若共轭函数的最大点大于 1，写成 $e^y$，则 $u=(1+y)^{n-2}(n+y)\ge y^{n-1}$。其他情形最大点至多为 1。故第二项至多为 $\mathbb E[e^{CX/n}1_{\{X>s+\sqrt n L\}}]$。由于 $s+\sqrt n L-n\mu\ge\sqrt n L/2$，取 $\theta$ 为 $L/\sqrt n$ 的充分小固定倍数，在 $\theta+C/n$ 应用上述矩估计即得 $O(e^{-cL^2})$。}{The first term is at most $\delta$. Stirling's formula gives $u(t)^{1/(n-1)}\le Ct/n$. If the maximizing point in the conjugate exceeds one, write it as $e^y$; then $u=(1+y)^{n-2}(n+y)\ge y^{n-1}$. Otherwise a maximizer is at most one. The second term is thus bounded by $\mathbb E[e^{CX/n}1_{\{X>s+\sqrt n L\}}]$. Since $s+\sqrt n L-n\mu\ge\sqrt n L/2$, apply the moment estimate at $\theta+C/n$ with $\theta$ a sufficiently small fixed multiple of $L/\sqrt n$ to obtain $O(e^{-cL^2})$.}
+
+\bi{单调性给 $\Phi_n(h(t))\le e^{t-s}$。当 $t<s$ 时 $h(t)\le e^{t-s}$。写 $v=t-s\in[0,\sqrt n L]$。在 $h>1$ 时令 $y=\log h$，则 $y+(n-1)\log(1+y)\le v$，故 $y=O(v/n)$，再展开得 $h\le1+v/n+O(v^2/n^2)$。将 $X$ 的各步减去条件均值得到鞅和 $Y$，有 $X\le n\mu+Y$，$\mathbb E Y^2=O(n)$。于是 $\mathbb E(X-s)_+^2=O(nL)$，二次误差的期望为 $O(L/n)$。}{Monotonicity gives $\Phi_n(h(t))\le e^{t-s}$, so $h(t)\le e^{t-s}$ for $t<s$. For $v=t-s\in[0,\sqrt n L]$ and $h>1$, write $y=\log h$. Then $y+(n-1)\log(1+y)\le v$, first giving $y=O(v/n)$ and then $h\le1+v/n+O(v^2/n^2)$. Centering each step by its conditional mean gives a martingale sum $Y$ with $X\le n\mu+Y$ and $\mathbb E Y^2=O(n)$. Hence $\mathbb E(X-s)_+^2=O(nL)$ and the integrated quadratic remainder is $O(L/n)$.}
+\end{proof}

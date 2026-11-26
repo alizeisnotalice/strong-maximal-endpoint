@@ -1,0 +1,149 @@
+\ifdefined\ResearchPaperChinese
+\documentclass[UTF8,fontset=fandol,11pt]{ctexart}
+\else
+\documentclass[11pt]{article}
+\usepackage{xeCJK}
+\setCJKmainfont{FandolSong-Regular.otf}
+
+\fi
+\usepackage[a4paper,margin=26mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\newcommand{\bi}[2]{\ifdefined\ResearchPaperChinese #1\else #2\fi}
+\newtheorem{thm}{\bi{定理}{Theorem}}
+\newtheorem{lem}[thm]{\bi{引理}{Lemma}}
+\newcommand{\RR}{\mathbb R}
+\newcommand{\vol}{\lvert}
+
+\title{\bi{非中心强极大算子最优端点常数的高维上下界}{High-dimensional bounds for the optimal endpoint constant of the uncentered strong maximal operator}}
+\ifdefined\ResearchPaperChinese
+\input{authors-zh}
+\else
+\input{authors-en}
+\fi
+\date{}
+\setlength{\emergencystretch}{2em}
+\begin{document}\maketitle
+\begin{abstract}
+\bi{研究非中心强极大算子的 $L(\log^+ L)^{n-1}$ 分布不等式中最小的维数常数 $C_n$。令 $\mu=1+e^{-\mu}$，并以标准正态上尾定义 $\bar\Phi(z_n)=\sqrt{\mu/n}\,z_n$，$d_n=\sqrt{\mu n}\,z_n$。在共同因子 $\exp(n\mu-d_n)$ 之外，$C_n$ 的多项式指数的下、上极限分别受 $(9-\mu)/24$ 和 $(3+\mu)/12$ 约束。下界来自真实矩形上的截断双曲输入；上界来自逐坐标重排后允许动作依赖过去的控制模型。二者留下的指数区间宽度为 $(\mu-1)/8$。}{We study the least dimensional constant $C_n$ in the $L(\log^+ L)^{n-1}$ distributional inequality for the uncentered strong maximal operator. Write $\mu=1+e^{-\mu}$ and define $d_n=\sqrt{\mu n}\,z_n$ by the standard Gaussian tail equation $\bar\Phi(z_n)=\sqrt{\mu/n}\,z_n$. After removing the common factor $\exp(n\mu-d_n)$, the lower and upper polynomial exponents of $C_n$ lie between $(9-\mu)/24$ and $(3+\mu)/12$. The lower bound uses truncated hyperbolic inputs and actual rectangles. The upper bound uses coordinate rearrangement and a control model with predictable actions. The remaining interval of exponents has width $(\mu-1)/8$.}
+\end{abstract}
+\section{\bi{端点不等式与主结果}{The endpoint inequality and the main result}}
+\bi{在配备 Lebesgue 测度的 $\mathbb R^n$ 上，令 $M_n f(x)$ 为 $|f|$ 在所有包含 $x$ 的有界、正体积轴平行矩形上的平均值的上确界。矩形无需以 $x$ 为中心。强矩形基的经典端点理论起于 Jessen、Marcinkiewicz 与 Zygmund \cite{jmz}；关于分布估计亦见 \cite{lp}。固定 $\Phi_n(t)=t(1+\log^+t)^{n-1}$，$\Phi_n(0)=0$，全文使用自然对数。经典估计断言存在只依赖维数的有限系数 $K_n$，使得}{On $\mathbb R^n$ with Lebesgue measure, let $M_nf(x)$ be the supremum of the averages of $|f|$ over bounded axis-parallel rectangles of positive volume containing $x$. The strong differentiation theorem goes back to Jessen, Marcinkiewicz and Zygmund \cite{jmz}; see also \cite{lp} for the distributional endpoint theory. Fix $\Phi_n(t)=t(1+\log^+t)^{n-1}$ with $\Phi_n(0)=0$ and use natural logarithms. The classical estimate gives a finite dimensional coefficient $K_n$ such that}
+\begin{equation}\label{class}
+ |\{M_nf>\lambda\}|\le K_n\int_{\mathbb R^n}\Phi_n(|f(x)|/\lambda)\,dx
+ \qquad(\lambda>0).
+\end{equation}
+\bi{为求最小可取系数，将 $f$ 除以 $\lambda$。由齐次性，最优系数恰为}{Scaling $f$ by $\lambda$ identifies the least admissible coefficient as}
+\[
+ C_n=\sup_{0<\int\Phi_n(|f|)<\infty}
+ \frac{|\{M_nf>1\}|}{\int\Phi_n(|f|)} .
+\]
+\bi{设 $\mu$ 为 $\mu=1+e^{-\mu}$ 的正根，$\bar\Phi$ 为标准正态上尾。记 $L=\log n$，令 $\bar\Phi(z_n)=\sqrt{\mu/n}\,z_n$，$d_n=\sqrt{\mu n}\,z_n$。左右两边在正半轴上分别严格递减和严格递增，故根唯一。由正态 Mills 比，$z_n\sim\sqrt L$。在多项式精度下必须保留 $d_n$ 的隐式定义。}{Let $\mu$ be the positive root of $\mu=1+e^{-\mu}$ and $\bar\Phi$ the standard normal tail. Set $L=\log n$, define $\bar\Phi(z_n)=\sqrt{\mu/n}\,z_n$, and put $d_n=\sqrt{\mu n}\,z_n$. Opposite strict monotonicities give a unique positive root. Mills' ratio gives $z_n\sim\sqrt L$. We retain the implicit centering at polynomial precision.}
+\begin{thm}\label{main}
+\[
+ \frac{9-\mu}{24}\le\liminf_{n\to\infty}
+ \frac{\log C_n-n\mu+d_n}{\log n}
+ \le\limsup_{n\to\infty}\frac{\log C_n-n\mu+d_n}{\log n}
+ \le\frac{3+\mu}{12}.
+\]
+\end{thm}
+\bi{证明需要两种比较。下界要求为每个接收点给出同一个实际矩形上的平均；上界必须同时控制每个可测输入。前一要求引出独立坐标的乘积分布，后一要求引出允许反馈的重排迭代。先构造这两条比较，再分别在相同的 $d_n$ 中心化下估计。}{Two comparisons enter the proof. The lower bound requires an average on a single actual rectangle for each receiver. The upper bound must cover every measurable input. The former leads to independent coordinate increments, the latter to a rearrangement iteration allowing feedback. We construct both comparisons before estimating them at the common centering $d_n$.}
+\section{\bi{重排与两个比较常数}{Rearrangement and the comparison constants}}
+\subsection{\bi{从矩形到一维秩变量}{From rectangles to a one-dimensional rank}}
+\bi{记 $M_i^{\rm dir}$ 为第 $i$ 个坐标方向的非中心极大算子。逐坐标积分得 $M_n f\le M_n^{\rm dir}\cdots M_1^{\rm dir} f$。为了在每次迭代中使用同一变量，令 $g=f^*$ 为全空间的递减重排，置}{Let $M_i^{\rm dir}$ denote the uncentered maximal operator in coordinate $i$. Successive integration gives $M_n f\le M_n^{\rm dir}\cdots M_1^{\rm dir} f$. To use a common variable at each step, take the decreasing rearrangement $g=f^*$ on the full space and set}
+\[
+ Tg(x)=\sup_{0\le r\le1}\frac{F(x)+F(rx)}{(1+r)x},\qquad
+ F(x)=\int_0^x g(v)\,dv .
+\]
+\bi{我们证明 $(M_i^{\rm dir} f)^*\le Tg$。先对非负有界且沿该方向有紧支撑的函数工作，假设正水平集有限。对每条直线纤维，左右单侧水平集分别记作 $L,R$。一维日出引理给出 $\int_L f=s|L|$ 及 $\int_R f=s|R|$：每个开分支的端点处，$f-s$ 的原函数取相同值。两侧之并即非中心水平集。相加后扣除交集，并逐纤维积分，得到}{We claim that $(M_i^{\rm dir}f)^*\le Tg$. First take a nonnegative bounded function compactly supported in this coordinate with finite positive level sets. On each line let $L,R$ be the two one-sided level sets at height $s>0$. The rising-sun lemma gives $\int_L f=s|L|$ and $\int_R f=s|R|$: the primitive of $f-s$ has equal values at the endpoints of each component. Their union is the uncentered level set. Adding the identities, subtracting the intersection and integrating over fibers gives}
+\[
+ sD\le F(D)+\int(f-s)_+=F(D)+F(b)-sb,\quad
+ D=|\{M_i^{\rm dir}f>s\}|,\quad b=|\{f>s\}|.
+\]
+\bi{这里 $b\le D$ 由微分定理得到。若 $D>0$，在 $Tg(D)$ 中取 $r=b/D$ 即得 $Tg(D)\ge s$。由于 $Tg$ 递减，对任意 $x<D$ 亦成立；令 $s$ 趋于该秩处的重排值即得断言。对有界集合的指标逐步应用时，中间函数均被各已用坐标的区间指标极大函数与未用坐标区间指标的乘积控制（取包含原集合的盒）。故正水平集有界，且下一坐标纤维有紧支撑。$T$ 保序，遂有 $(M_n1_E)^*\le T^n1_{(0,|E|)}$。一般有限测度集合由与递增盒相交、再取单调极限处理。}{Differentiation gives $b\le D$. For $D>0$, choosing $r=b/D$ gives $Tg(D)\ge s$. Monotonicity gives the same bound for $x<D$, and passage to the rearranged value at rank $x$ proves the claim. Starting with a bounded set in a box, each iterate is bounded by the product of the one-dimensional maximal functions of the interval indicators in used coordinates and the interval indicators in unused coordinates. Its positive level sets are bounded and the next fibers have compact support. Since $T$ preserves order, $(M_n1_E)^*\le T^n1_{(0,|E|)}$. Intersecting with increasing boxes extends the resulting volume bounds to arbitrary sets of finite measure.}
+
+\subsection{\bi{秩的随机演化}{Random evolution of rank}}
+\bi{固定动作 $r$ 时，秩 $x$ 变成 $xV_r$，其中 $V_r$ 的分布函数在 $[0,1]$ 上为 $(v+\min(v,r))/(1+r)$，这正给出定义 $T$ 的两个积分。用同一均匀变量 $t\in(0,1)$ 实现所有动作，其分位函数及对数增量为}{At action $r$, rank $x$ becomes $xV_r$, where $V_r$ has distribution function $(v+\min(v,r))/(1+r)$ on $[0,1]$. This gives exactly the two integrals defining $T$. Realize all actions with a common uniform variable $t\in(0,1)$ via}
+\[
+ Q_r(t)=\max\{(1+r)t/2,(1+r)t-r\},\qquad Z_r(t)=-\log Q_r(t).
+\]
+\bi{各步使用独立均匀变量 $t_i$，动作 $r_i$ 可依赖过去。记 $S_n=\sum_i Z_{r_i}(t_i)$。对指标终值，$T^n$ 在秩 $x$ 的值等于所有此类策略下 $\Pr(S_n>\log(x/|E|))$ 的上确界。此式由反向归纳得出：每步积分关于 $r$ 连续（原函数连续），故可在可数稠密动作中取上确界，按枚举选首个误差小于 $\epsilon/n$ 的动作即给出可测策略。}{Use fresh independent uniforms $t_i$ and allow $r_i$ to depend on the past. Put $S_n=\sum_i Z_{r_i}(t_i)$. For indicator terminal data, the value of $T^n$ at rank $x$ is the supremum of $\Pr(S_n>\log(x/|E|))$ over these policies. Backward induction proves this representation: the action integral is continuous in $r$ by continuity of the primitive. A countable dense set suffices, and choosing the first action within $\epsilon/n$ of the supremum at each step gives a measurable policy.}
+
+
+\bi{同一反向归纳对有界非减终值 $h$ 给出 $\sup_\pi\mathbb E_\pi h(S_n)$。定义预算 $J(h)=\int_0^\infty e^{-t}\Phi_n(h(t))\,dt$。在 $\mathbb Eh(S_n)>1$ 条件下取 $1/J(h)$ 的上确界；动作预先固定时记为 $Q_n$，可依过去选取时记为 $\mathcal R_n$。下文也用 $a=-\log r$ 参数化动作，此时增量分布为独立和 $\mathrm{Exp}(1)+a\,\mathrm{Bernoulli}((1+e^a)^{-1})$。其均值 $m(a)=1+a/(1+e^a)$ 在 $a=\mu$ 处取唯一最大值 $\mu$，该处方差也等于 $\mu$。}{The same backward induction gives $\sup_\pi\mathbb E_\pi h(S_n)$ for bounded nonnegative nondecreasing terminal profiles $h$. Write $J(h)=\int_0^\infty e^{-t}\Phi_n(h(t))\,dt$. Take the supremum of $1/J(h)$ subject to $\mathbb Eh(S_n)>1$, calling it $Q_n$ for deterministic actions and $\mathcal R_n$ for predictable actions. In the parametrization $a=-\log r$ an increment has law $\mathrm{Exp}(1)+a\,\mathrm{Bernoulli}((1+e^a)^{-1})$ with independent summands. Its mean $m(a)=1+a/(1+e^a)$ is uniquely maximized at $a=\mu$, where both mean and variance equal $\mu$.}
+\begin{lem}\label{bridge}
+\[
+ Q_n\le C_n\le\mathcal R_n.
+\]
+\end{lem}
+\begin{proof}
+\bi{若 $x$ 严格低于有界紧支撑输入的水平集体积，重排上界在秩 $x$ 处严格超过 1。取 $h(t)=f^*(xe^{-t})$（可先取 $f\ge0$），变量代换给 $xJ(h)=\int_0^x\Phi_n(f^*(v))\,dv$。故 $x\le\mathcal R_n\int\Phi_n(f)$。取秩的极限，再截断逼近一般输入。}{At any rank $x$ strictly below the halo volume of a bounded compactly supported nonnegative input, the rearrangement bound exceeds one. Take $h(t)=f^*(xe^{-t})$. Substitution gives $xJ(h)=\int_0^x\Phi_n(f^*(v))\,dv$. Thus $x\le\mathcal R_n\int\Phi_n(f)$. Pass to the limiting rank and then truncate to cover arbitrary inputs.}
+
+\bi{反向设 $T(y)=-\sum_i\log|y_i|$，在 $[-1,1]^n$ 上取 $f(y)=h(T(y)-b)$，负自变量时以零延拓，方体外置零。在 $T(x)\ge b$ 处取端点为 $-r_i x_i,x_i$ 的矩形。其均匀点 $y$ 满足 $T(y)=T(x)+S_n$，所以矩形平均至少为 $\mathbb Eh(S_n)>1$。均匀方体上的 $T$ 服从 $\Gamma(n,1)$。积分并以接收集体积归一化，得到}{Conversely set $T(y)=-\sum_i\log|y_i|$ and take $f(y)=h(T(y)-b)$ on $[-1,1]^n$, extending $h$ by zero to negative arguments and setting $f=0$ outside the cube. At receivers with $T(x)\ge b$ choose the rectangle with endpoints $-r_ix_i,x_i$. Its uniform point $y$ satisfies $T(y)=T(x)+S_n$ in law. Its average is at least $\mathbb Eh(S_n)>1$. Under uniform measure on the cube, $T$ is $\Gamma(n,1)$. Integration and normalization by the receiver volume give}
+\[
+ \frac{\int\Phi_n(f)}{|\{x\in[-1,1]^n:T(x)\ge b\}|}
+ =\frac{\int_0^\infty \Phi_n(h(t))e^{-t}(1+t/b)^{n-1}\,dt}
+ {\int_0^\infty e^{-t}(1+t/b)^{n-1}\,dt}\longrightarrow J(h).
+\]
+\bi{先固定 $n$，再令 $b\to\infty$；有界性允许支配收敛。取上确界得下侧。}{Here $n$ is fixed as $b\to\infty$; boundedness gives dominated convergence. Take the supremum over feasible profiles.}
+\end{proof}
+
+\section{\bi{下界：实际输入的平台宽度}{Lower bound via a plateau in the input}}
+\bi{固定各坐标动作 $a_n=\mu-\frac12\sqrt{\mu L/n}$。用同一个动作保证上一引理中的矩形可实际选取。设 $S$ 为这些增量之和。写}{Use the deterministic action $a_n=\mu-\frac12\sqrt{\mu L/n}$ in each coordinate and let $S$ denote the sum. The preceding lemma realizes this choice by actual rectangles. Write}
+\[
+ w=L/2+\log L,\quad H_w(v)=
+ \begin{cases}0&v<0,\\1&0\le v\le w,\\ e^{(v-w)/n}&v>w.\end{cases}
+\]
+\bi{对 $h(t)=H_w(t-q)$，直接积分给}{For $h(t)=H_w(t-q)$, direct integration gives}
+\[
+ J(h)=e^{-q}(1-e^{-w}+e^{-w}I_n),\qquad
+ I_n=\int_0^\infty e^{-u+u/n}(1+u/n)^{n-1}du\sim\sqrt{\pi n/2}.
+\]
+\bi{最后一步由 $u=\sqrt n\,v$ 及 Laplace 法得出，指数为 $(n-1)[\log(1+u/n)-u/n]$；在 $u\le n$ 用负二次界，在 $u>n$ 用负线性界。因此括号为 $1+O(1/L)$。若去掉平台，分母将多出 $\sqrt n$ 量级，这正会改变所求的多项式指数。}{For the last step put $u=\sqrt n\,v$. The exponent is $(n-1)[\log(1+u/n)-u/n]$; a negative quadratic bound for $u\le n$ and a negative linear bound beyond $n$ justify Laplace convergence. The parenthesis is therefore $1+O(1/L)$. Omitting the plateau would cost a factor of order $\sqrt n$ in the modular.}
+
+
+\bi{在所需精度下，可直接在 $s=n\mu-d_n+CL$ 检验平均值，而无须求平台根。由 $e^v\ge1+v$，写 $M=\mathbb ES$，$F(s)=\Pr(S\le s)$，则}{At the required precision test the average at $s=n\mu-d_n+CL$. Write $M=\mathbb ES$ and $F(s)=\Pr(S\le s)$. The inequality $e^v\ge1+v$ gives}
+\[
+ \mathbb EH_w(S-s)\ge 1-F(s)+n^{-1}\mathbb E(S-s-w)_+
+ \ge 1-F(s)+(M-s-w)/n.
+\]
+\bi{设 $V=\operatorname{Var}S$，$K_3$ 为第三累积量，$g=(\mu-1)/8$。记 $\rho=(1+e^a)^{-1}$。单步的均值、方差及三阶累积量依次为 $1+a\rho$、$1+a^2\rho(1-\rho)$、$2+a^3\rho(1-\rho)(1-2\rho)$。在 $a=\mu$ 处，均值二阶导数为 $-(\mu-1)/\mu$，方差一阶导数为 $\mu-1$。代入 $a_n$ 给出}{Let $V=\operatorname{Var}S$, let $K_3$ be its third cumulant, and put $g=(\mu-1)/8$. Writing $\rho=(1+e^a)^{-1}$, the one-step mean, variance and third cumulant are $1+a\rho$, $1+a^2\rho(1-\rho)$ and $2+a^3\rho(1-\rho)(1-2\rho)$. At $a=\mu$ the second derivative of the mean is $-(\mu-1)/\mu$ and the derivative of the variance is $\mu-1$. Substitution of $a_n$ gives}
+\[
+ M=n\mu-g L+o(L),\quad V=n\mu-\tfrac12(\mu-1)\sqrt{\mu n L}+O(L),
+ \qquad K_3/V\longrightarrow 3-\mu .
+\]
+\bi{置 $x=(M-s)/\sqrt V$。在 $V=n\mu$ 处展开平方根倒数并用 $z_n/\sqrt L\to1$，得到 $(x-z_n)\sqrt{n\mu}=(g-C)L+o(L)$。记 $\varphi$ 为标准正态密度；Mills 比给 $\varphi(z_n)/\sqrt{n\mu}\sim L/n$。在该窗口内密度与 $\varphi(z_n)$ 之比趋于 1。对标准化和作一项 Edgeworth 展开，得}{Put $x=(M-s)/\sqrt V$. Expanding the reciprocal square root at $V=n\mu$ and using $z_n/\sqrt L\to1$ gives $(x-z_n)\sqrt{n\mu}=(g-C)L+o(L)$. For the standard normal density $\varphi$, Mills' ratio gives $\varphi(z_n)/\sqrt{n\mu}\sim L/n$. The density throughout this window is asymptotic to $\varphi(z_n)$. The first Edgeworth expansion is}
+\[
+ F(s)=\bar\Phi(x)+\frac{K_3}{6V^{3/2}}(1-x^2)\varphi(x)+O(n^{-1}).
+\]
+\bi{为核查一致余项，单步特征函数为 $(1-it)^{-1}(1-\rho+\rho e^{iat})$。在 $\mu$ 的紧邻域各阶矩一致有界，方差有正下界。在标准化 Fourier 变量 $|t|\le n^{1/12}$ 上展开对数至三阶，取指数后的余项至多 $Cn^{-1}(t^4+t^6)e^{-ct^2}$。在 $n^{1/12}<|t|\le\delta\sqrt n$ 用 $e^{-ct^2}$。其余尾部用 $(1+t^2/V)^{-n/2}$，积分 $dt/|t|$ 后指数小；例如在 $|t|/\sqrt V$ 的固定正下界以上保留两个幂次供积分，其余幂次给指数衰减。对特征函数之差作分布函数反演即得所述绝对误差。}{For uniformity, the increment characteristic function is $(1-it)^{-1}(1-\rho+\rho e^{iat})$. All moments are uniformly bounded near $\mu$ and the variance is bounded below. On $|t|\le n^{1/12}$ in the standardized Fourier variable, expand the logarithm to third order; after exponentiation the remainder is bounded by $Cn^{-1}(t^4+t^6)e^{-ct^2}$. Use $e^{-ct^2}$ on $n^{1/12}<|t|\le\delta\sqrt n$. On the remaining tail use $(1+t^2/V)^{-n/2}$, whose integral against $dt/|t|$ is exponentially small: above a fixed positive lower bound for $|t|/\sqrt V$, reserve two powers for integrability and bound the rest geometrically. Distribution-function inversion of the characteristic-function difference gives the stated absolute error.}
+\bi{由 $\bar\Phi(z_n)=d_n/n$，正态项相对 $(M-s)/n$ 的差为 $(C-g+o(1))L^2/n$。偏度项另贡献 $-((3-\mu)/6+o(1))L^2/n$。因此若 $C<c_-=(3-\mu)/6+g$，平台平均严格大于 1，因为 $w/n=O(L/n)$。有界截断保留严格性；应用引理 \ref{bridge} 并令 $C\uparrow c_-$ 即得下界。}{Since $\bar\Phi(z_n)=d_n/n$, the Gaussian term exceeds $(M-s)/n$ by $(C-g+o(1))L^2/n$. The skewness term contributes $-((3-\mu)/6+o(1))L^2/n$. Hence for $C<c_-=(3-\mu)/6+g$ the plateau average strictly exceeds one, since $w/n=O(L/n)$. Bounded truncation preserves strict success. Apply Lemma~\ref{bridge} and let $C\uparrow c_-$.}
+\section{\bi{上界：统一预算与反馈校正}{Upper bound via the modular budget and feedback correction}}
+\bi{写 $c_-=(9-\mu)/24$、$g=(\mu-1)/8$，在 $s=n\mu-d_n+C L$ 处测试所有满足 $J(h)\le e^{-s}$ 的轮廓。技术证明附件给出以下两步控制。首先，以}{Put $c_-=(9-\mu)/24$, $g=(\mu-1)/8$, and test all profiles with $J(h)\le e^{-s}$ at $s=n\mu-d_n+CL$. The technical supplement gives the following two comparisons. First, with}
+\[
+ \phi_n(r)=\begin{cases}e^{-r}&r>0,\\1-r/n&r\le0,\end{cases}
+ \qquad \mathcal U_n(s)=\sup_\pi\mathbb E_\pi\phi_n(s-S_n),
+\]
+\input{budget}
+\bi{原预算给 $\mathbb E_\pi h(S_n)\le\mathcal U_n(s)+O(L/n)$，一致于轮廓及可预测策略。其次，选择与 $s$ 匹配的固定参考动作 $a$，满足 $2a-m(a)=s/n$，以 $f_n$ 记参考和在 $s$ 处的密度，以 $v_n$ 记参考终值期望。局部展开和全空间比较分别给}{the modular gives $\mathbb E_\pi h(S_n)\le\mathcal U_n(s)+O(L/n)$ uniformly in the profile and predictable policy. Next choose the reference action $a$ by $2a-m(a)=s/n$. Write $f_n(s)$ for the reference sum density and $v_n(s)$ for the reference payoff. The local expansion and global comparison give, respectively,}
+\begin{align*}
+ f_n(s)&\sim L/n,\qquad v_n(s)=1-(C-c_-)f_n(s)L+o(f_n(s)L),\\
+ \mathcal U_n(s)&\le v_n(s)+\alpha g f_n(s)L+o(f_n(s)L).
+\end{align*}
+\bi{这里 $\alpha>1$ 先固定且充分接近 1。第二式源于离散 Bellman 上界：参考动作的 Poisson 校正在匹配点的二次项消失，其余调和和为 $gL+o(L)$（以密度归一化）。全空间上界须对每一步的所有动作成立，方可向后迭代。附件列出了该比较的局部展开、外区控制与初值。}{Here $\alpha>1$ is fixed sufficiently close to one. In the discrete Bellman comparison the quadratic part of the reference Poisson correction vanishes at the matching point, leaving a harmonic sum $gL+o(L)$ after division by the density. Backward iteration requires a bound for every action at every state. The supplement supplies the local expansion, exterior comparisons and initialization.}
+
+\input{comparison}
+\bi{给定 $\epsilon>0$，取 $C=c_-+g+\epsilon$，再固定 $(\alpha-1)g<\epsilon/2$。于是所有可行预算的期望至多 $1-(\epsilon/2+o(1))f_n(s)L+O(L/n)<1$，因为 $f_n(s)L\sim L^2/n$。故 $\mathcal R_n\le e^s$。引理 \ref{bridge} 及 $\epsilon\downarrow0$ 给出主定理上界 $c_+=c_-+g=(3+\mu)/12$。}{Given $\epsilon>0$, take $C=c_-+g+\epsilon$, then fix $(\alpha-1)g<\epsilon/2$. Every such budget yields expectation at most $1-(\epsilon/2+o(1))f_n(s)L+O(L/n)<1$, since $f_n(s)L\sim L^2/n$. Thus $\mathcal R_n\le e^s$. Apply Lemma~\ref{bridge} and send $\epsilon\downarrow0$ to obtain $c_+=c_-+g=(3+\mu)/12$.}
+\input{geometry}
+\section{\bi{回到端点不等式}{The coefficient in the endpoint inequality}}
+\bi{对每个 $\epsilon>0$，充分大的 $n$、任意 $\lambda>0$ 及所有有限模数输入都有}{For every $\epsilon>0$, all sufficiently large $n$, every $\lambda>0$, and every input with finite modular,}
+\[
+ |\{M_nf>\lambda\}|\le e^{n\mu-d_n}n^{(3+\mu)/12+\epsilon}
+ \int_{\mathbb R^n}\Phi_n(|f|/\lambda).
+\]
+\bi{反之，若将右侧系数换为 $e^{n\mu-d_n}n^{(9-\mu)/24-\epsilon}$，则对每个充分大的 $n$ 均存在反例：在下界构造中将指数误差先控制在 $\epsilon/2$ 内，再取足够深的有限截断，最后按 $\lambda$ 缩放输入。两种指数的极限差为 $g=0.034808\ldots$。因而确定了共同的指数因子和次指数因子，以及宽度为 $g$ 的多项式指数区间；实际最优系数在区间中的位置仍待确定。}{Conversely, replacing the coefficient by $e^{n\mu-d_n}n^{(9-\mu)/24-\epsilon}$ fails in every sufficiently large dimension. Use half the exponent margin in the lower construction, take a sufficiently deep finite truncation and scale the input by $\lambda$. The limiting width of the interval of polynomial exponents is $g=0.034808\ldots$. This determines the common exponential and subexponential factors and confines the remaining exponent to an interval of width $g$. Its exact value for the rectangular operator remains open.}
+\begin{thebibliography}{9}
+\bibitem{jmz} B. Jessen, J. Marcinkiewicz and A. Zygmund, Note on the differentiability of multiple integrals, Fund. Math. 25 (1935), 217--234. \href{https://doi.org/10.4064/fm-25-1-217-234}{DOI}.
+\bibitem{lp} T. Luque and I. Parissis, The endpoint Fefferman--Stein inequality for the strong maximal function, J. Funct. Anal. 266 (2014), 199--212. \href{https://doi.org/10.1016/j.jfa.2013.09.028}{DOI}.
+\end{thebibliography}
+\end{document}

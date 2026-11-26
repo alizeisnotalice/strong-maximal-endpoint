@@ -1,0 +1,14 @@
+# Local build products
+build/
+.lake/
+*.olean
+*.ilean
+*.aux
+*.fls
+*.fdb_latexmk
+*.log
+*.out
+*.synctex.gz
+*.xdv
+__pycache__/
+.DS_Store

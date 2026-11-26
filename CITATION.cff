@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you cite the repository, use the metadata below. For an individual manuscript, see the citation listed in the README."
+title: "非中心强极大算子最优端点常数的高维上下界"
+type: software
+version: "1.0.0"
+date-released: "2026-11-27"
+repository-code: https://github.com/alizeisnotalice/strong-maximal-endpoint
+authors:
+  - family-names: "郑"
+    given-names: "之浩"
+    affiliation: "北京师范大学物理与天文学院 2026 级本科生"
+  - family-names: "唐"
+    given-names: "浩天"
+    affiliation: "北京师范大学数学科学学院 2024 级本科生"
+  - family-names: "彭"
+    given-names: "奕博"
+    affiliation: "北京师范大学数学科学学院 2025 级本科生"
