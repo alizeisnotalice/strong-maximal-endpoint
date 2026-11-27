@@ -22,7 +22,22 @@ python3 verification/r148/check_staircase.py
 ## Lean
 
 ```sh
-(cd lean && lean -DwarningAsError=true StrongMaximal.lean)
+(cd lean && ./verify.sh)
 ```
 
-[代码](../lean/StrongMaximal.lean)对应论文“秩的随机演化”一节，在有理数上验证分位数阈值等价及对正分母的约分。[公理报告](lean-axioms.txt)列出依赖。
+`verify.sh` 依次做四件事：拒绝含 `sorry`/`admit`/自设公理的源码；扫描
+`StrongMaximal/*.lean` 的**全部**声明并重新生成 `StrongMaximal/Audit.lean`
+（因此审计清单不会与源码脱节）；清空 olean 后完整重建；逐条检查
+`#print axioms` 输出，出现 `propext`、`Classical.choice`、`Quot.sound`
+以外的依赖即失败。
+
+需要 `elan`（工具链由 `lean/lean-toolchain` 固定为 `leanprover/lean4:v4.36.0`，Mathlib 由
+`lean/lakefile.lean` + `lean/lake-manifest.json` 固定在 `v4.36.0`）。`build.sh` 按依赖顺序编译
+全部模块并输出公理审计。
+
+模块与状态见 [lean/report.md](../lean/report.md)：其中列出「论文公式／定理 → Lean 顶层声明 →
+依赖文件 → 完整／条件性／未接入」的逐项对照、未形式化的解析步骤、以及原稿下界 Edgeworth 记账的
+一处量级缺口（附数值复核脚本 `lean/lower-bound-audit.py`）。
+
+原 v1.0.0 的有理数分位数引理保留为 [`StrongMaximal/RankRat.lean`](../lean/StrongMaximal/RankRat.lean)，
+内容未改写；[公理报告](lean-axioms.txt)仍列出它原本的两条依赖。
